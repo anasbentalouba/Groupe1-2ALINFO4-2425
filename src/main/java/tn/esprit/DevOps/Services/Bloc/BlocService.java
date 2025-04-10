@@ -1,4 +1,3 @@
-
 package tn.esprit.DevOps.Services.Bloc;
 
 import lombok.AllArgsConstructor;
@@ -9,9 +8,9 @@ import tn.esprit.DevOps.DAO.Entities.Foyer;
 import tn.esprit.DevOps.DAO.Repositories.BlocRepository;
 import tn.esprit.DevOps.DAO.Repositories.ChambreRepository;
 import tn.esprit.DevOps.DAO.Repositories.FoyerRepository;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 @AllArgsConstructor
@@ -111,6 +110,7 @@ public class BlocService implements IBlocService {
         b.setFoyer(f);
         return blocRepository.save(b);
     }
+
 
 
 }
