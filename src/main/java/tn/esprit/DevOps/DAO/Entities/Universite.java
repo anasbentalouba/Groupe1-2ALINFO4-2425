@@ -13,6 +13,10 @@ public class Universite implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idUniversite;
+
+    private String nomUniversite;
+    String adresse;
+    
     @OneToOne(cascade = CascadeType.ALL) //ajout, Modif et suppression
     Foyer foyer;
 
