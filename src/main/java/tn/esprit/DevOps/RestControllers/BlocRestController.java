@@ -1,12 +1,14 @@
 package tn.esprit.DevOps.RestControllers;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.DevOps.DAO.Entities.Bloc;
 import tn.esprit.DevOps.Services.Bloc.IBlocService;
-
 import java.util.List;
+
+
+
+
 
 @RestController
 @RequestMapping("bloc")
@@ -43,13 +45,12 @@ public class BlocRestController {
     Bloc affecterChambresABloc(@RequestBody List<Long> numChambre, @RequestParam String nomBloc) {
         return service.affecterChambresABloc(numChambre, nomBloc);
     }
-    // ...............?nomFoyer=....&nomBloc=....
+  
     @PutMapping("affecterBlocAFoyer")
     Bloc affecterBlocAFoyer(@RequestParam String nomBloc, @RequestParam String nomFoyer) {
         return service.affecterBlocAFoyer(nomBloc, nomFoyer);
     }
 
-    // .............../Foyer des jasmins/Bloc G
     @PutMapping("affecterBlocAFoyer2/{nomFoyer}/{nomBloc}")
     Bloc affecterBlocAFoyer2(@PathVariable String nomBloc, @PathVariable String nomFoyer) {
         return service.affecterBlocAFoyer(nomBloc, nomFoyer);
