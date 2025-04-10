@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,37 +18,17 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Bloc{
+public class Bloc implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idBloc;
     String nomBloc;
     long capaciteBloc;
 
-
+    @ManyToOne
+    @JsonIgnore
+    Foyer foyer;
     @OneToMany(mappedBy = "bloc", fetch = FetchType.EAGER)
     @JsonIgnore
     List<Chambre> chambres= new ArrayList<>();
 }
-
-package tn.esprit.DevOps.DAO.Entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
-@Entity
-@Getter
-@Setter
-@Table(name = "T_BLOC")
-public class Bloc {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idBloc;
-    String nomBloc;
-    @ManyToOne
-    @JsonIgnore
-    Foyer foyer;
-}
-
