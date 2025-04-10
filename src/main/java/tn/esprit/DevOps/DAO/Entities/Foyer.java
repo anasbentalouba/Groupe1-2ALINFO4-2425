@@ -27,4 +27,3 @@ public class Foyer implements Serializable {
     @OneToMany(mappedBy = "foyer")
     List<Bloc> blocs= new ArrayList<>();
 }
-
