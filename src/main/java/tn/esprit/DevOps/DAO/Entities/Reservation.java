@@ -1,3 +1,4 @@
+
 package tn.esprit.DevOps.DAO.Entities;
 
 
@@ -28,4 +29,9 @@ public class Reservation implements Serializable {
     @JsonIgnore
     List<Etudiant> etudiants = new ArrayList<>();
 
+}
+
+package tn.esprit.DevOps.DAO.Entities;
+
+public class Reservation {
 }

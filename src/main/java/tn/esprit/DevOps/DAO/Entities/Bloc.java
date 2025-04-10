@@ -1,3 +1,9 @@
+
+package tn.esprit.DevOps.DAO.Entities;
+
+public class Bloc {
+}
+
 package tn.esprit.DevOps.DAO.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,3 +24,4 @@ public class Bloc {
     @JsonIgnore
     Foyer foyer;
 }
+
