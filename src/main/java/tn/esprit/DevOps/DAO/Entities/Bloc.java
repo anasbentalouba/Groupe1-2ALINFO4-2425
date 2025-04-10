@@ -5,10 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+
+
 
 @Entity
 @Table(name = "T_BLOC")
@@ -31,4 +33,5 @@ public class Bloc implements Serializable {
     @OneToMany(mappedBy = "bloc", fetch = FetchType.EAGER)
     @JsonIgnore
     List<Chambre> chambres= new ArrayList<>();
+   
 }
