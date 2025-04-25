@@ -1,6 +1,6 @@
-package tn.esprit.spring.Services.Etudiant;
+package tn.esprit.DevOps.Services.Etudiant;
 
-import tn.esprit.spring.DAO.Entities.Etudiant;
+import tn.esprit.DevOps.DAO.Entities.Etudiant;
 
 import java.util.List;
 
