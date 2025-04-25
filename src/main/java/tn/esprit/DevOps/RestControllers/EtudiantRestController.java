@@ -1,4 +1,4 @@
-package tn.esprit.spring.RestControllers;
+package tn.esprit.DevOps.RestControllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
