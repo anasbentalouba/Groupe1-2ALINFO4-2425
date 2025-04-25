@@ -1,8 +1,8 @@
 package tn.esprit.DevOps.Services.Reservation;
 
 
-import tn.esprit.spring.DAO.Entities.Foyer;
-import tn.esprit.spring.DAO.Entities.Reservation;
+import tn.esprit.DevOps.DAO.Entities.Foyer;
+import tn.esprit.DevOps.DAO.Entities.Reservation;
 
 import java.time.LocalDate;
 import java.util.List;
