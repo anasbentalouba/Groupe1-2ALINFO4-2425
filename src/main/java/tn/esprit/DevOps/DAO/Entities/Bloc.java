@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Bloc implements Serializable {
+public class Bloc{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idBloc;
@@ -33,5 +33,4 @@ public class Bloc implements Serializable {
     @OneToMany(mappedBy = "bloc", fetch = FetchType.EAGER)
     @JsonIgnore
     List<Chambre> chambres= new ArrayList<>();
-   
 }

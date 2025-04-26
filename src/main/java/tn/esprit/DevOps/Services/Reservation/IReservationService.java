@@ -17,10 +17,4 @@ public interface IReservationService {
     long  getReservationParAnneeUniversitaire(LocalDate debutAnnee, LocalDate finAnnee ) ;
     String annulerReservation (long cinEtudiant) ;
 
-    void annulerReservations();
-
-
-    void affectReservationAChambre(String idRes,long idChambre);
-    void deaffectReservationAChambre(String idRes, long idChambre);
-
 }

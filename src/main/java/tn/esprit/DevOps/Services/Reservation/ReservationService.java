@@ -144,13 +144,5 @@ public class ReservationService implements IReservationService {
                 + " est annulée avec succés";
     }
 
-    @Override
-    public void affectReservationAChambre(String idRes, long idChambre) {
-        Reservation r = repo.findById(idRes).get();
-        Chambre c = chambreRepository.findById(idChambre).get();
-        // Parent: Chambre , Child: Reservation
-        // On affecte le child au parent
-        c.getReservations().add(r);
-        chambreRepository.save(c);
-    }
+
 }
