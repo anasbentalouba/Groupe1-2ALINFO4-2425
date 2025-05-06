@@ -57,15 +57,16 @@ public class FoyerService implements IFoyerService {
 
     @Override
     public Foyer ajouterFoyerEtAffecterAUniversite(Foyer foyer, long idUniversite) {
-        // Récuperer la liste des blocs avant de faire l'ajout
         List<Bloc> blocs = foyer.getBlocs();
-        // Foyer est le child et universite est parent
         Foyer f = repo.save(foyer);
+
         Universite u = universiteRepository.findById(idUniversite).orElse(null);
-        // Foyer est le child et bloc est le parent
-        //On affecte le child au parent
+        if (u == null) {
+            return null;
+        }
+
         for (Bloc bloc : blocs) {
-            bloc.setFoyer(foyer);
+            bloc.setFoyer(f);
             blocRepository.save(bloc);
         }
         u.setFoyer(f);
