@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 # Allow all files under DevOps (add at the end of the file)
-!src/main/java/tn/esprit/DevOps/
+!src/main/java/tn/esprit/devops/
