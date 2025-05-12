@@ -34,7 +34,7 @@ public class ReservationService implements IReservationService {
 
     @Override
     public Reservation findById(String id) {
-        return repo.findById(id).get();
+        return repo.findById(id).orElse(null);
     }
 
     @Override
@@ -83,13 +83,13 @@ public class ReservationService implements IReservationService {
 
         // Vérification de la capacité de la chambre
         boolean ajout = false;
-        int capaciteMaximale = switch (chambre.getTypeC()) {
+        int capacityMaximale = switch (chambre.getTypeC()) {
             case SIMPLE -> 1;
             case DOUBLE -> 2;
             case TRIPLE -> 3;
         };
 
-        if (nombreReservations < capaciteMaximale) {
+        if (nombreReservations < capacityMaximale) {
             ajout = true;
         } else {
             log.info("Chambre " + chambre.getTypeC() + " remplie !");
@@ -97,7 +97,7 @@ public class ReservationService implements IReservationService {
 
         if (ajout) {
             // Création de la réservation
-            String idReservation = "" + getDateDebutAU().getYear() + "/" + getDateFinAU().getYear() + "-" + chambre.getBloc().getNomBloc() + "-"
+            String idReservation = " " + getDateDebutAU().getYear() + "/" + getDateFinAU().getYear() + "-" + chambre.getBloc().getNomBloc() + "-"
                     + chambre.getNumeroChambre() + "-" + etudiant.getCin();
 
             Reservation reservation = Reservation.builder()
@@ -125,8 +125,8 @@ public class ReservationService implements IReservationService {
 
 
     @Override
-    public long getReservationParAnneeUniversitaire(LocalDate debutAnnee, LocalDate finAnnee) {
-        return repo.countByAnneeUniversitaireBetween(debutAnnee, finAnnee);
+    public long getReservationParAnneeUniversitaire(LocalDate debutAnne, LocalDate finAnne) {
+        return repo.countByAnneeUniversitaireBetween(debutAnne, finAnne);
     }
 
     @Override
