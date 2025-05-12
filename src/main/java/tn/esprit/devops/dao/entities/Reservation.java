@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "T_RESERVATION")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class Reservation implements Serializable {
     boolean estValide;
     @ManyToMany
     @JsonIgnore
-    List<Etudiant> etudiants = new ArrayList<>();
+    private List<Etudiant> etudiants = new ArrayList<>();
 
 }
 

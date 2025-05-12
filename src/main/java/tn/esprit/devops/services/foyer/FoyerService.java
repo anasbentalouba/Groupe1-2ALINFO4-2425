@@ -7,8 +7,7 @@ import tn.esprit.devops.dao.entities.Foyer;
 import tn.esprit.devops.dao.entities.Universite;
 import tn.esprit.devops.dao.repositories.BlocRepository;
 import tn.esprit.devops.dao.repositories.FoyerRepository;
-import tn.esprit.devops.dao.repositories.UniversiteRepository;
-
+import tn.esprit.devops.dao.repositories.UniversityRepository;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ import java.util.Optional;
 public class FoyerService implements IFoyerService {
     private final FoyerRepository foyerRepository;
     FoyerRepository repo;
-    UniversiteRepository universiteRepository;
+    UniversityRepository universiteRepository;
     BlocRepository blocRepository;
 
     @Override
@@ -50,7 +49,6 @@ public class FoyerService implements IFoyerService {
     public Universite affecterFoyerAUniversite(long idFoyer, String nomUniversite) {
         Foyer f = findById(idFoyer); // Child
         Universite u = universiteRepository.findByNomUniversite(nomUniversite); // Parent
-        // On affecte le child au parent
         u.setFoyer(f);
         return universiteRepository.save(u);
     }
@@ -71,17 +69,6 @@ public class FoyerService implements IFoyerService {
         }
         u.setFoyer(f);
         return universiteRepository.save(u).getFoyer();
-    }
-
-    @Override
-    public Foyer ajoutFoyerEtBlocs(Foyer foyer) {
-        List<Bloc> blocs = foyer.getBlocs();
-        foyer = repo.save(foyer);
-        for (Bloc b : blocs) {
-            b.setFoyer(foyer);
-            blocRepository.save(b);
-        }
-        return foyer;
     }
 
     @Override

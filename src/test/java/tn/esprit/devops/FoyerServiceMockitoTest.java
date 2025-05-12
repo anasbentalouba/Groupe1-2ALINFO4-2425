@@ -9,9 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops.dao.entities.Foyer;
 import tn.esprit.devops.dao.repositories.FoyerRepository;
 import tn.esprit.devops.services.foyer.FoyerService;
-import tn.esprit.devops.services.foyer.IFoyerService;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)

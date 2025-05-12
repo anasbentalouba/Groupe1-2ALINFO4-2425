@@ -3,14 +3,14 @@ package tn.esprit.devops.services.universite;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.devops.dao.entities.Universite;
-import tn.esprit.devops.dao.repositories.UniversiteRepository;
+import tn.esprit.devops.dao.repositories.UniversityRepository;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class UniversiteService implements IUniversiteService {
-    UniversiteRepository repo;
+    UniversityRepository repo;
 
     @Override
     public Universite addOrUpdate(Universite u) {
@@ -24,7 +24,7 @@ public class UniversiteService implements IUniversiteService {
 
     @Override
     public Universite findById(long id) {
-        return repo.findById(id).get();
+        return repo.findById(id).orElse(null);
     }
 
     @Override
