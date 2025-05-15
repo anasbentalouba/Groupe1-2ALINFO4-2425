@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
-@Table(name = "T_BLOC")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,6 +28,6 @@ public class Chambre implements Serializable {
     @JsonIgnore
     Bloc bloc;
     @OneToMany
-    List<Reservation> reservations= new ArrayList<>();
+    private List<Reservation> reservations= new ArrayList<>();
 }
 

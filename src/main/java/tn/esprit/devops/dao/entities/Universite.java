@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "T_UNIVERSITE")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
