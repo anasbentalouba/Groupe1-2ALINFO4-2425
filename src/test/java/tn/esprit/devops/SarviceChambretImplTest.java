@@ -18,7 +18,7 @@ import tn.esprit.devops.services.chambre.ChambreService;
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
-public class ChambreServiceImplTest {
+public class SarviceChambretImplTest {
     @Autowired
     private ChambreService chambreService;
     @Test
