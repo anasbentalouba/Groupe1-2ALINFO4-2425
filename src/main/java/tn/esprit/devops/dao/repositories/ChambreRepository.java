@@ -24,18 +24,12 @@ public interface ChambreRepository extends JpaRepository<Chambre, Long> {
 
     long count();
 
-    long countChambreByTypeC(TypeChambre typeChambre);
+
 
 
     List<Chambre> findByBlocNomBloc(String nomB);
 
-    @Query("select c from Chambre c where c.bloc.nomBloc=?1")
-    List<Chambre> getChambresParNomBlocJPQL(String nomBloc);
 
-    @Query(value = "SELECT c.* FROM t_chambre c JOIN t_bloc b " +
-            "ON c.bloc_id_bloc=b.id_bloc WHERE b.nom_bloc=:nom"
-            , nativeQuery = true)
-    List<Chambre> getChambresParNomBlocSQL(@Param(value = "nom") String nomBloc);
 
 
 
