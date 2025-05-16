@@ -20,15 +20,6 @@ public class BlocService implements IBlocService {
     BlocRepository blocRepository;
     FoyerRepository foyerRepository;
 
-    @Override
-    public Bloc addOrUpdate2(Bloc b) { //Cascade
-        List<Chambre> chambres = b.getChambres();
-        for (Chambre c : chambres) {
-            c.setBloc(b);
-            chambreRepository.save(c);
-        }
-        return b;
-    }
 
     @Override
     public Bloc addOrUpdate(Bloc b) {
@@ -48,12 +39,13 @@ public class BlocService implements IBlocService {
 
     @Override
     public Bloc findById(long id) {
-        return repo.findById(id).get();
+        return  repo.findById(id).orElse(null);
     }
 
     @Override
     public void deleteById(long id) {
-        Bloc b =repo.findById(id).get();
+        Bloc b = repo.findById(id).orElse(null);
+        assert b != null;
         chambreRepository.deleteAll(b.getChambres());
         repo.delete(b);
     }

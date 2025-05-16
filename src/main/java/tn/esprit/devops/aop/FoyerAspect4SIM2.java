@@ -26,12 +26,12 @@ public class FoyerAspect4SIM2 /* La classe: Aspect */  {
     }
 
     @Before("execution(* tn.esprit.devops.services..*.ajouter*(..))")
-    public void beforeAdvice2(JoinPoint jp){
+    public void beforeAdvice2(){
         log.info("Ranni méthode ajouter");
     }
 
     @Around("execution(* tn.esprit.devops.services..*.*(..))")
-    public Object profile(ProceedingJoinPoint pjp) throws Throwable
+    public Object profile(ProceedingJoinPoint ignoredPjp)
     {
         long start = System.currentTimeMillis();
         long elapsedTime = System.currentTimeMillis() - start;

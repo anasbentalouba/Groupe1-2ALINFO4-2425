@@ -3,7 +3,6 @@ package tn.esprit.devops.services.etudiant;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.devops.dao.entities.Etudiant;
-import tn.esprit.devops.dao.entities.Reservation;
 import tn.esprit.devops.dao.repositories.EtudiantRepository;
 import tn.esprit.devops.dao.repositories.ReservationRepository;
 
@@ -27,7 +26,7 @@ public class EtudiantService implements IEtudiantService {
 
     @Override
     public Etudiant findById(long id) {
-        return repo.findById(id).get();
+        return repo.findById(id).orElse(null);
     }
 
     @Override
@@ -45,28 +44,4 @@ public class EtudiantService implements IEtudiantService {
         return repo.selectJPQL(nom);
     }
 
-    @Override
-    public void affecterReservationAEtudiant
-            (String idR, String nomE, String prenomE) {
-        // ManyToMany: Reservation(Child) -- Etudiant(Parent)
-        // 1- Récupérer les objets
-        Reservation res= reservationRepository.findById(idR).get();
-        Etudiant et= repo.getByNomEtAndPrenomEt(nomE,prenomE);
-        // 2- Affectation: On affecte le child au parent
-        et.getReservations().add(res);
-        // 3- Save du parent
-        repo.save(et);
-    }
-    @Override
-    public void desaffecterReservationAEtudiant
-            (String idR, String nomE, String prenomE) {
-        // ManyToMany: Reservation(Child) -- Etudiant(Parent)
-        // 1- Récupérer les objets
-        Reservation res= reservationRepository.findById(idR).get();
-        Etudiant et= repo.getByNomEtAndPrenomEt(nomE,prenomE);
-        // 2- Affectation: On desaffecte le child au parent
-        et.getReservations().remove(res);
-        // 3- Save du parent
-        repo.save(et);
-    }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "T_ETUDIANT")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class Etudiant implements Serializable {
     String ecole;
     LocalDate dateNaissance;
     @ManyToMany(mappedBy = "etudiants")
-    List<Reservation> reservations= new ArrayList<>();
+    private List<Reservation> reservations= new ArrayList<>();
 
 
 }
