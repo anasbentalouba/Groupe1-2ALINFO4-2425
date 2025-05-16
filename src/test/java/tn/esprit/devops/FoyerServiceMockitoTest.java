@@ -4,6 +4,9 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops.dao.entities.Foyer;
@@ -12,11 +15,14 @@ import tn.esprit.devops.services.foyer.FoyerService;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FoyerServiceMockitoTest {
+@Mock
 FoyerRepository foyerRepository;
+@InjectMocks
 FoyerService foyerService;
     @Test
+    @Order(1)
     public void testAjouterFoyer(){
         Foyer foyer = Foyer.builder().nomFoyer("Foyer Test").capaciteFoyer(50).build();
         Mockito.when(foyerRepository.save(Mockito.any(Foyer.class))).thenReturn(foyer);
