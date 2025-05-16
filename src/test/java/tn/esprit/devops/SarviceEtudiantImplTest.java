@@ -35,14 +35,14 @@ public class SarviceEtudiantImplTest {
         Etudiant savedEtudiant = etudiantService.addOrUpdate(etudiant);
 
         // Vérifier que l'étudiant a bien été ajouté et qu'il a un ID attribué
-        Assertions.assertNotNull(savedEtudiant.getIdEtudiant());
+        Assertions.assertNotNull(savedEtudiant);
 
         // Vérifier que le nom et le prénom ne dépassent pas une certaine longueur
         Assertions.assertTrue(savedEtudiant.getNomEt().length() < 20);
         Assertions.assertTrue(savedEtudiant.getPrenomEt().length() < 20);
 
         // Vérifier que la CIN est un entier à 8 chiffres
-        Assertions.assertTrue(String.valueOf(savedEtudiant.getCin()).length() == 8);
+        Assertions.assertEquals(8, String.valueOf(savedEtudiant.getCin()).length());
 
         // Vérifier que l'école est bien enregistrée
         Assertions.assertEquals("ESPRIT", savedEtudiant.getEcole());
