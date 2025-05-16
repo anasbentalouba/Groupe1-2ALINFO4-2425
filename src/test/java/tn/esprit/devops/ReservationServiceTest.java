@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
- class ReservationServiceTest {
+class ReservationServiceTest {
 
     @Mock
     ReservationRepository reservationRepository;
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @Test
     @Order(1)
-     void testAjouterReservationEtAssignerAChambreEtAEtudiant_Success() {
+    void testAjouterReservationEtAssignerAChambreEtAEtudiant_Success() {
         Long numeroChambre = 101L;
         long cin = 12345678L;
 
@@ -53,7 +53,14 @@ import static org.junit.jupiter.api.Assertions.*;
         when(chambreRepository.countReservationsByIdChambreAndReservationsAnneeUniversitaireBetween(
                 anyLong(), any(LocalDate.class), any(LocalDate.class))).thenReturn(1);
 
-        when(reservationRepository.save(any(Reservation.class))).thenAnswer(i -> i.getArgument(0));
+        when(reservationRepository.save(any(Reservation.class))).thenAnswer(invocation -> {
+            Reservation r = invocation.getArgument(0);
+            if (r.getEtudiants() == null) {
+                r.setEtudiants(new ArrayList<>());
+            }
+            return r;
+        });
+
         when(chambreRepository.save(any(Chambre.class))).thenAnswer(i -> i.getArgument(0));
 
         Reservation result = reservationService.ajouterReservationEtAssignerAChambreEtAEtudiant(numeroChambre, cin);
@@ -68,7 +75,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @Test
     @Order(2)
-     void testAjouterReservationEtAssignerAChambreEtAEtudiant_ChambrePleine() {
+    void testAjouterReservationEtAssignerAChambreEtAEtudiant_ChambrePleine() {
         Long numeroChambre = 102L;
         long cin = 87654321L;
 
@@ -97,7 +104,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @Test
     @Order(3)
-     void testAnnulerReservation() {
+    void testAnnulerReservation() {
         long cinEtudiant = 12345678L;
 
         Reservation reservation = new Reservation();
