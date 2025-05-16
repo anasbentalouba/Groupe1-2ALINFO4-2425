@@ -9,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops.dao.entities.Bloc;
 import tn.esprit.devops.dao.entities.Chambre;
 import tn.esprit.devops.dao.repositories.BlocRepository;
@@ -23,8 +22,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@SpringBootTest
-public class BlocServicetest {
+ public class BlocServiceTest {
     @Mock
     BlocRepository blocRepository;
     @Mock
