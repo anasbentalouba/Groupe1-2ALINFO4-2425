@@ -1,47 +1,51 @@
 package tn.esprit.devops;
 
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import tn.esprit.devops.dao.entities.Chambre;
-
 import tn.esprit.devops.dao.entities.TypeChambre;
+import tn.esprit.devops.dao.repositories.ChambreRepository;
 import tn.esprit.devops.services.chambre.ChambreService;
 
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
+ class ChambreServiceImplTest {
 
-@ExtendWith(SpringExtension.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@SpringBootTest
-public class ChambreServiceImplTest {
-    @Autowired
+    @Mock
+    private ChambreRepository chambreRepository;
+
+    @InjectMocks
     private ChambreService chambreService;
+
     @Test
-    public void testAjouterEtudiant() {
-        // Création d'un chambre
+     void testAjouterChambre() {
+        // GIVEN
         Chambre chambre = Chambre.builder()
                 .numeroChambre(10)
                 .typeC(TypeChambre.SIMPLE)
-
                 .build();
 
-        // Ajout de l'chambre
-        Chambre savedChambre = chambreService.addOrUpdate(chambre);
+        Chambre savedChambre = Chambre.builder()
+                .idChambre(1L)
+                .numeroChambre(10)
+                .typeC(TypeChambre.SIMPLE)
+                .build();
 
-        // Vérifier que l'chambre a bien été ajouté et qu'il a un ID attribué
-        Assertions.assertNotNull(savedChambre);
+        when(chambreRepository.save(chambre)).thenReturn(savedChambre);
 
-        // Vérifier que le NumeroChambre ne dépassent pas 999
-        Assertions.assertTrue(savedChambre.getNumeroChambre() < 999);
+        // WHEN
+        Chambre result = chambreService.addOrUpdate(chambre);
 
+        // THEN
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(10, result.getNumeroChambre());
+        Assertions.assertTrue(result.getNumeroChambre() < 999);
 
-
-        // Nettoyer la base en supprimant l’chambre ajouté
-        chambreService.delete(savedChambre);
+        verify(chambreRepository, times(1)).save(chambre);
     }
 }
