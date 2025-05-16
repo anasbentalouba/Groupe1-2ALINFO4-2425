@@ -1,36 +1,28 @@
 package tn.esprit.devops;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops.dao.entities.Foyer;
 import tn.esprit.devops.dao.repositories.FoyerRepository;
 import tn.esprit.devops.services.foyer.FoyerService;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class FoyerServiceMockitoTest {
-
-    @Mock
-    FoyerRepository foyerRepository;
-
-    @InjectMocks
-    FoyerService foyerService;
-
+@SpringBootTest
+public class FoyerServiceMockitoTest {
+FoyerRepository foyerRepository;
+FoyerService foyerService;
     @Test
-    void testAjouterFoyer() {
+    public void testAjouterFoyer(){
         Foyer foyer = Foyer.builder().nomFoyer("Foyer Test").capaciteFoyer(50).build();
-
-        when(foyerRepository.save(any(Foyer.class))).thenReturn(foyer);
-
-        Foyer savedFoyer = foyerService.addOrUpdate(foyer);
-
-        assertEquals("Foyer Test", savedFoyer.getNomFoyer());
-        assertEquals(50, savedFoyer.getCapaciteFoyer());
-        verify(foyerRepository).save(any(Foyer.class));
+        Mockito.when(foyerRepository.save(Mockito.any(Foyer.class))).thenReturn(foyer);
+        Foyer savedFoyer=foyerService.addOrUpdate(foyer);
+        Assertions.assertEquals(foyer.getNomFoyer(), savedFoyer.getNomFoyer());
+        Assertions.assertEquals(foyer.getCapaciteFoyer(), savedFoyer.getCapaciteFoyer());
+        verify(foyerRepository).save(Mockito.any(Foyer.class));
     }
 }
