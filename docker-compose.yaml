@@ -1,0 +1,19 @@
+
+services:
+  app:
+    image: abirlajili/mon-app:1.0
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: appdb
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
