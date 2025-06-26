@@ -69,59 +69,51 @@ public class ReservationService implements IReservationService {
         return dateFinAU;
     }
 
-    @Override
-    public Reservation ajouterReservationEtAssignerAChambreEtAEtudiant
-            (Long numChambre, long cin) {
-        // Récupération de la chambre et de l'étudiant
-        Chambre chambre = chambreRepository.findByNumeroChambre(numChambre);
-        Etudiant etudiant = etudiantRepository.findByCin(cin);
-
-        // Compter le nombre de réservations existantes
-        int nombreReservations = chambreRepository.
-                countReservationsByIdChambreAndReservationsAnneeUniversitaireBetween
-                        (chambre.getIdChambre(), getDateDebutAU(), getDateFinAU());
-
-        // Vérification de la capacité de la chambre
-        boolean ajout = false;
-        int capacityMaximale = switch (chambre.getTypeC()) {
-            case SIMPLE -> 1;
-            case DOUBLE -> 2;
-            case TRIPLE -> 3;
-        };
-
-        if (nombreReservations < capacityMaximale) {
-            ajout = true;
-        } else {
-            log.info("Chambre " + chambre.getTypeC() + " remplie !");
-        }
-
-        if (ajout) {
-            // Création de la réservation
-            String idReservation = " " + getDateDebutAU().getYear() + "/" + getDateFinAU().getYear() + "-" + chambre.getBloc().getNomBloc() + "-"
-                    + chambre.getNumeroChambre() + "-" + etudiant.getCin();
-
-            Reservation reservation = Reservation.builder()
-                    .estValide(true)
-                    .anneeUniversitaire(LocalDate.now())
-                    .idReservation(idReservation)
-                    .build();
-
-            // Affectation de l'étudiant à la réservation
-            reservation.getEtudiants().add(etudiant);
-
-            // Sauvegarde de la réservation
-            reservation = repo.save(reservation);
-
-            // Affectation de la réservation à la chambre
-            chambre.getReservations().add(reservation);
-            chambreRepository.save(chambre);
-
-            return reservation;
-        }
-
-        // Retourner null ou lever une exception plutôt que de retourner une nouvelle réservation vide
-        return null; // Ou vous pouvez lever une exception pour indiquer que l'ajout a échoué
+  @Override
+public Reservation ajouterReservationEtAssignerAChambreEtAEtudiant(Long numChambre, long cin) {
+    Chambre chambre = chambreRepository.findByNumeroChambre(numChambre);
+    Etudiant etudiant = etudiantRepository.findByCin(cin);
+ 
+    int nombreReservations = chambreRepository
+            .countReservationsByIdChambreAndReservationsAnneeUniversitaireBetween(
+                    chambre.getIdChambre(), getDateDebutAU(), getDateFinAU());
+ 
+    int capacityMaximale = switch (chambre.getTypeC()) {
+        case SIMPLE -> 1;
+        case DOUBLE -> 2;
+        case TRIPLE -> 3;
+    };
+ 
+    if (nombreReservations >= capacityMaximale) {
+        log.info("Chambre " + chambre.getTypeC() + " remplie !");
+        return null; 
     }
+ 
+    String idReservation = getDateDebutAU().getYear() + "/" + getDateFinAU().getYear() + "-" +
+            chambre.getBloc().getNomBloc() + "-" + chambre.getNumeroChambre() + "-" + etudiant.getCin();
+ 
+    Reservation reservation = Reservation.builder()
+            .estValide(true)
+            .anneeUniversitaire(LocalDate.now())
+            .idReservation(idReservation)
+            .build();
+ 
+    if (reservation.getEtudiants() == null) {
+        reservation.setEtudiants(new java.util.ArrayList<>());
+    }
+ 
+    reservation.getEtudiants().add(etudiant);
+ 
+    reservation = repo.save(reservation);
+ 
+    if (chambre.getReservations() == null) {
+        chambre.setReservations(new java.util.ArrayList<>());
+    }
+    chambre.getReservations().add(reservation);
+    chambreRepository.save(chambre);
+ 
+    return reservation;
+}
 
 
     @Override
