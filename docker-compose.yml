@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-devops-db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: devops
+    volumes:
+      - db_data:/var/lib/mysql
+
+  payment:
+    build: .
+    image: devops:1.0
+    container_name: devops-app
+    depends_on:
+      - db
+    ports:
+      - "9000:8099"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/devops?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+volumes:
+  db_data:
