@@ -8,7 +8,7 @@ import java.util.List;
 public interface IFoyerService {
     Foyer addOrUpdate(Foyer f);
 
-    List<Foyer> findAll();
+    List<Foyer> findAllFoyers();
 
     Foyer findById(long id);
 
