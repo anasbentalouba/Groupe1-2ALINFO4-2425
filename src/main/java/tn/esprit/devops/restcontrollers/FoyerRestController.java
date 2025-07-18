@@ -10,7 +10,7 @@ import tn.esprit.devops.services.foyer.IFoyerService;
 import java.util.List;
 
 @RestController
-@RequestMapping("foyer")
+@RequestMapping("/foyer")
 @AllArgsConstructor
 public class FoyerRestController {
     IFoyerService service;
@@ -20,9 +20,9 @@ public class FoyerRestController {
         return service.addOrUpdate(f);
     }
 
-    @GetMapping("findAll")
+    @GetMapping("/findAll")
     List<Foyer> findAll() {
-        return service.findAll();
+        return service.findAllFoyers();
     }
 
     @GetMapping("findById")

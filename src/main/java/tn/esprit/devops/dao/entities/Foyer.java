@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "foyer")
 @Getter
 @Setter
 @NoArgsConstructor
